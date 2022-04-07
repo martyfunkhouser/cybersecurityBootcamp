@@ -35,9 +35,9 @@ any resource limits.
 The advantage of a jump box is that you are not exposing your entire network and servers to the outside world. Instead, each machine is only reachable 
 from that jump box and leaves the other systems less exposed to exploits or brute force attempts.
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the -application- and system -files- .
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the -application- and system -logs- .
 - _TODO: What does Filebeat watch for?_
-File beat monitors files, including system files, for changes
+File beat monitors log files, including system files, for changes
 
 - _TODO: What does Metricbeat record?_
 Metric beat provides telemetry data from applications such as CPU usage, memory usage, IO, etc.
@@ -109,21 +109,28 @@ Web-2 - 10.0.0.6
 We have installed the following Beats on these machines:
 - _TODO: Specify which Beats you successfully installed_
 Filebeats:
-System
+System logs
 
 Metricbeats:
-Docker
+Docker logs
 
 These Beats allow us to collect the following information from each machine:
 - _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+
+Filebeats collect parse information from specific log files in order to provide chartable telemetry data. For example, installing and enabling the 
+Apache Filebeat module will allow you to parse logs specific to apache such as incoming HTTP connections, submitted forms, etc.
+
+Metricbeats collect metrics from the operating system and running services in order to generate data. For example. installing the MSSQL module 
+on a Windows SQL server will collect telemetry data such as IO, CPU and memory, and performance statistics.
+
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the -YAML playbook- file to -the ansible container.
+- Update the -/etc/ansible/hosts- file to include -each of the hosts that you want to run the playbook against. Be sure to create groups depending on what playbooks you're running-
+- Run the playbook, and navigate to - [http://ELK-IP:5601] - to check that the installation worked as expected.
 
 _TODO: Answer the following questions to fill in the blanks:_
 - _Which file is the playbook? Where do you copy it?_
@@ -131,3 +138,4 @@ _TODO: Answer the following questions to fill in the blanks:_
 - _Which URL do you navigate to in order to check that the ELK server is running?
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+
